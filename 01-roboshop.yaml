@@ -1,19 +1,20 @@
 - name: create ec2 instance(maddali boss)
-  hosts: local
+  hosts: localhost
   connection: local
   vars: 
     sg_id: sg-0dde2b2dbc55696ae
     ami_id: ami-0220d79f3f480ecf5
+    subnet_id: subnet-05f89af555de452f2  
     env:  dev
     instances:
-    - mongodb
-    - catalogue
+      - mongodb
+      - catalogue
   
   tasks:
   - name: create ec2 instance
     amazon.aws.ec2_instance:
       instance_type:  "t3.micro"
-      security_group: "{{ sg_id }}"
+      security_group_ids: "{{ sg_id }}"
       vpc_subnet_id: "{{ subnet_id }}"
       image_id: "{{ ami_id }}"
       name: "{{ item }}-{{ env }}"
