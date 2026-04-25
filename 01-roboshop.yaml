@@ -5,6 +5,7 @@
     sg_id: sg-0dde2b2dbc55696ae
     ami_id: ami-0220d79f3f480ecf5
     subnet_id: subnet-05f89af555de452f2
+    domain name: "sujju.online"
     env: dev
     instances:
       - mongodb
