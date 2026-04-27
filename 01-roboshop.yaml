@@ -10,8 +10,14 @@
     domain_name: "sujju.online"
     env: dev
     instances:
-      - mongodb
-      - catalogue
+      - redis   
+      - user
+      - cart 
+      - mysql 
+      - shipping 
+      - rabbitmq 
+      - payment 
+      - frontend
 ###create###
   tasks:
     - name: create ec2 instance
