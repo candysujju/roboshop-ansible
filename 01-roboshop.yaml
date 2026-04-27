@@ -1,3 +1,4 @@
+# ansible-playbook -i localhost, -e instances=['mongodb','catalogue','redis','user','cart','mysql','shipping','rabbitmq','payment','frontend'] roboshop.yaml
 - name: create ec2 instance and r53 records
   hosts: all
   connection: local
@@ -11,7 +12,7 @@
     instances:
       - mongodb
       - catalogue
-
+###create###
   tasks:
     - name: create ec2 instance
       amazon.aws.ec2_instance:
