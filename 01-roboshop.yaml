@@ -12,13 +12,6 @@
     instances:
        - mongodb
        - catalogue 
-       - redis
-       - user
-       - cart
-       - mysql
-       - shipping
-       - rabbitmq
-       - payment
        - frontend
 ###create###
   tasks:
@@ -51,6 +44,7 @@
         ttl: 1
         value: "{{ item.instances[0].private_ip_address }}"
         wait: true
+        overwrite: true
       loop: "{{ ec2_output.results }}" #list
 
     - name: create r53 records
