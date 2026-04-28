@@ -10,16 +10,17 @@
     env: dev
     action: create
     instances:
-      - mongodb
-      - catalogue
-      - redis
-      - user
-      - cart
-      - mysql 
-      - shipping 
-      - rabbitmq 
-      - payment
-      - frontend
+      instances:
+       - mongodb
+       - catalogue 
+       - redis
+       - user
+       - cart
+       - mysql
+       - shipping
+       - rabbitmq
+       - payment
+       - frontend
 ###create###
   tasks:
     - name: create ec2 instance
