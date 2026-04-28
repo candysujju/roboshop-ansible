@@ -66,10 +66,11 @@
       when: item.item == "frontend" 
 
     - name: delete ec2 instance
-      amazon.aws.ec2_instance: 
-      name: "{{ item }}-{{ env }}"
-      state: absent
-      wait: false
-    loop: "{{ instances }}"
-    when: action == "destroy"
+      amazon.aws.ec2_instance:
+        name: "{{ item }}-{{ env }}"
+        state: absent 
+        wait: false
+      loop: "{{ instances }}"
+      when: action == "destroy"
+
 
