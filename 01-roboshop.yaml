@@ -24,7 +24,7 @@
   tasks:
     - name: create ec2 instance
       amazon.aws.ec2_instance:
-        instance_type: "t2.micro"
+        instance_type: "t3.micro"
         security_group: "{{ sg_id }}"
         vpc_subnet_id: "{{ subnet_id }}"
         image_id: "{{ ami_id }}"
@@ -65,4 +65,11 @@
       loop: "{{ ec2_output.results }}"
       when: item.item == "frontend" 
 
-    
+    - name: delete ec2 instance
+      amazon.aws.ec2_instance: 
+      name: "{{ item }}-{{ env }}"
+      state: absent
+      wait: false
+      loop: "{{ instances }}"
+      when: action == "destroy"
+
