@@ -11,11 +11,20 @@
     action: create
     instances:
        - mongodb
+       - catalogue 
+       - redis
+       - user
+       - cart
+       - mysql
+       - shipping
+       - rabbitmq
+       - payment
+       - frontend
 ###create###
   tasks:
     - name: create ec2 instance
       amazon.aws.ec2_instance:
-        instance_type: "t3.micro"
+        instance_type: "t2.micro"
         security_group: "{{ sg_id }}"
         vpc_subnet_id: "{{ subnet_id }}"
         image_id: "{{ ami_id }}"
@@ -54,15 +63,34 @@
         ttl: 1
         value: "{{ item.instances[0].public_ip_address }}"
         wait: true 
+        overwrite: true
       loop: "{{ ec2_output.results }}"
       when: item.item == "frontend" 
+      
+    - name: delete route53 records
+      amazon.aws.route53:
+      zone: "{{ domain_name }}"
+      state: absent        
+      record: "{{ item }}-{{ env }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+     loop: "{{ instances }}"
+     when: action == "destroy" 
 
+    - name: delete route53 records (public)        # Extra added by me for "Tesing" purpose
+      amazon.aws.route53:
+      zone: "{{ domain_name }}"
+      state: absent        
+      record: "roboshop-{{ env }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+      when: action == "destroy" 
+   
     - name: delete ec2 instance
-      amazon.aws.ec2_instance:
-        name: "{{ item }}-{{ env }}"
-        state: absent 
-        wait: false
+      amazon.aws.ec2_instance: 
+      name: "{{ item }}-{{ env }}"
+      state: absent
+      wait: false
       loop: "{{ instances }}"
-      when: action == "destroy"
-
+      when: action == "destroy"  
 
