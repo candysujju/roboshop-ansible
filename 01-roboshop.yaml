@@ -70,6 +70,6 @@
       name: "{{ item }}-{{ env }}"
       state: absent
       wait: false
-      loop: "{{ instances }}"
-      when: action == "destroy"
+    loop: "{{ instances }}"
+    when: action == "destroy"
 
