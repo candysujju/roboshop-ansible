@@ -11,14 +11,7 @@
     env: dev
     instances:
       - mongodb
-      - catalogue
-      - redis   
-      - user
-      - cart 
-      - mysql 
-      - shipping 
-      - rabbitmq 
-      - payment 
+      - catalogue 
       - frontend
 ###create###
   tasks:
