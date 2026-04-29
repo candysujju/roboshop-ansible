@@ -31,16 +31,18 @@
         region: us-east-1
         name: "{{ item }}-{{ env }}"
         tags:
-          Project: roboshop
+          Project: "roboshop"
           Component: "{{ item }}"
           Environment: "{{ env }}"
           Name: "{{ item }}-{{ env }}"
       loop: "{{ instances }}" 
       register: ec2_output
+      when: action == "create"
 
-    - name: print the output
+    - name:  print the ec2_output
       ansible.builtin.debug:
         msg: "{{ ec2_output }}"
+        when: action == "create" 
 
     - name: create r53 records
       amazon.aws.route53:
@@ -50,8 +52,6 @@
         type: A
         ttl: 1
         value: "{{ item.instances[0].private_ip_address }}"
-        wait: true
-        overwrite: true
       loop: "{{ ec2_output.results }}" #list
 
     - name: create r53 records
@@ -62,8 +62,6 @@
         type: A
         ttl: 1
         value: "{{ item.instances[0].public_ip_address }}"
-        wait: true 
-        overwrite: true
       loop: "{{ ec2_output.results }}"
       when: item.item == "frontend" 
 
