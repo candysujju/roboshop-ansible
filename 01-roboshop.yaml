@@ -32,7 +32,7 @@
         name: "{{ item }}-{{ env }}"
         tags:
           Project: "roboshop"
-          Component: "{{ item }}"
+          Component: "{{ item }}-{{ env }}"
           Environment: "{{ env }}"
           Name: "{{ item }}-{{ env }}"
       loop: "{{ instances }}" 
