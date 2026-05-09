@@ -11,8 +11,14 @@
     ansible.builtin.service:
       name: mysqld
       state: restarted
-      enabled: yes                                          
+      enabled: yes 
+
+  - name: check if root password is set
+    ansible.builtin.command: mysql -uroot -pRoboShop@1 -e 'show databases;'
+    ignore_errors: true                                           
+    register: mysql_check 
   
   - name: setup root password
     ansible.builtin.command: mysql_secure_installation --set-root-pass RoboShop@1
+    when: mysql_check.rc != 0
     
