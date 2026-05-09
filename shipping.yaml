@@ -69,7 +69,6 @@
     wait_for:
       host: "{{ MYSQL_HOST }}"
       port: 3306
-      timeout: 60
 
   - name: import shipping data
     community.mysql.mysql_db:
