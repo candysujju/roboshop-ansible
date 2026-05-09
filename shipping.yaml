@@ -66,7 +66,7 @@
       executable: pip3
   
   - name: wait for mysql to be reachable
-    wait for:
+    wait_for:
       host: "{{ MYSQL_HOST }}"
       port: 3306
       timeout: 60
