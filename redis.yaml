@@ -1,4 +1,4 @@
-- ame: redis configure redis server
+- name:me: redis configure redis server
   hosts: redis
   become: yes 
   tasks:
