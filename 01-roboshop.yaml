@@ -11,7 +11,7 @@
     action: create
     instances:
        - mongodb
-       - catalogue 
+       - catalogue
        - redis
        - user
        - cart
