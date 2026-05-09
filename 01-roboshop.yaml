@@ -70,6 +70,36 @@
       loop: "{{ ec2_output.results }}"
       when: item.item == "frontend" 
 
+     -name: delete route53 records
+      amazon.aws.route53:
+      zone: "{{ domain_name }}"
+      state: absent        
+      record: "{{ item }}-{{ env }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+    loop: "{{ instances }}"
+    when: action == "destroy" 
+
+  - name: delete route53 records (public)        # Extra added by me for "Tesing" purpose
+    amazon.aws.route53:
+      zone: "{{ domain_name }}"
+      state: absent        
+      record: "roboshop-{{ env }}.{{ domain_name }}"
+      type: A
+      ttl: 1
+    when: action == "destroy" 
+
+# 6. Terminate EC2 servers    
+  - name: delete ec2 instance
+    amazon.aws.ec2_instance: 
+      name: "{{ item }}-{{ env }}"
+      state: absent
+      wait: false
+    loop: "{{ instances }}"
+    when: action == "destroy"
+  
+      
+
     
 
     
