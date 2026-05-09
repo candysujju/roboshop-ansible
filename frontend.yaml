@@ -46,7 +46,7 @@
     ansible.builtin.unarchive:
       src: /tmp/frontend.zip
       dest: /usr/share/nginx/html
-      remote_src: yes
+      remote_src: nginx.conf
 
 # 4. START SERVICE
 # Manual: "systemctl enable nginx" and "systemctl restart nginx"
