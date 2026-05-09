@@ -14,7 +14,7 @@
       enabled: yes 
 
   - name: check if root password is set
-    ansible.builtin.command: mysql -uroot -pRoboShop@1 -e 'show databases;'
+    ansible.builtin.command: mysql -uroot -pRoboShop@1 "show databases;"
     ignore_errors: true                                           
     register: mysql_check 
   
