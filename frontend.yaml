@@ -1,7 +1,9 @@
 - name: configure frontend
   hosts: frontend
   become: yes
+
   tasks:
+
   - name: enable nginx 1.24
     ansible.builtin.command: dnf module enable nginx:1.24 -y
 
@@ -12,9 +14,9 @@
 
   - name: copy roboshop config
     ansible.builtin.template:
-      src:  nginx.conf
-      dest: /etc/nginx/default.d/nginx.conf
-    notify: restart nginx   
+      src: nginx.conf
+      dest: /etc/nginx/default.d/roboshop.conf
+    notify: restart nginx
 
   - name: clean old content
     ansible.builtin.file:
