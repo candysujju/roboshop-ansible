@@ -64,13 +64,6 @@
         - cryptography
         - PyMySQL
       executable: pip3
-  
-  - name: wait mysql to be reachable
-    ansible.builtin.wait_for:
-    host: "{{ MYSQL_HOST }}"
-    port: 3306
-    state: started
-    timeout: 60
       
   - name: import shipping data
     community.mysql.mysql_db:
