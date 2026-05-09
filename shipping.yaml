@@ -65,7 +65,7 @@
         - PyMySQL
       executable: pip3
   
-  - name: wait or mysql to be reachable
+  - name: wait mysql to be reachable
     ansible.builtin.wait_for:
     host: "{{ MYSQL_HOST }}"
     port: 3306
