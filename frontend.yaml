@@ -33,8 +33,8 @@
 
     - name: remove default nginx
       ansible.builtin.file:
-        src: nginx.conf
         path: /etc/nginx/nginx.conf
+        state: absent
 
     - name: copy nginx.conf
       ansible.builtin.template:
